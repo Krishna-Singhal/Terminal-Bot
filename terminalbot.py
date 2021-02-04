@@ -59,8 +59,10 @@ async def exec_cmd(_, msg: Message):
         with open("terminal.txt", "w+") as ef:
             ef.write(out_data)
             ef.close()
-        return await msg.reply_document(
+        await msg.reply_document(
             "terminal.txt", filename="terminal.txt", caption=cmd)
+        os.remove("terminal.txt"
+        return
     send = message.edit if k else message.reply
     await send(out_data)
 
