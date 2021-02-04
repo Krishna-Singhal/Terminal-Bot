@@ -7,7 +7,6 @@ from terminal import Terminal
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-terminal = Terminal()
 OWNER_ID = int(os.environ.get("OWNER_ID", 0))
 
 bot = Client(
@@ -63,7 +62,7 @@ async def exec_cmd(_, msg: Message):
             "terminal.txt", filename="terminal.txt", caption=cmd)
         os.remove("terminal.txt")
         return
-    send = message.edit if k else message.reply
+    send = msg.edit if k else msg.reply
     await send(out_data)
 
 
