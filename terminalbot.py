@@ -50,7 +50,13 @@ async def exec_cmd(_, msg: Message):
         if count >= 5:
             count = 0
             out_data = f"{output}`{t_obj.read_line}`"
-            k = await msg.reply(out_data)
+            try:
+                if not k:
+                    k = await msg.reply(out_data)
+                else:
+                    await k.edit(out_data)
+            except:
+                pass
     out_data = f"`{output}{t_obj.get_output}`"
     if len(out_data) > 4096:
         if k:
@@ -62,7 +68,7 @@ async def exec_cmd(_, msg: Message):
             "terminal.txt", filename="terminal.txt", caption=cmd)
         os.remove("terminal.txt")
         return
-    send = msg.edit if k else msg.reply
+    send = k.edit if k else msg.reply
     await send(out_data)
 
 
