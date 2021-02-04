@@ -30,7 +30,7 @@ async def exec_cmd(_, msg: Message):
         return await msg.reply("`Command not found!`")
     response = terminal.ex_command(msg.command[1]);
     while len(response) > 0:
-        await bot.send_message(msg.chat.id, text=response[0:4000]);
+        await bot.send_message(msg.chat.id, text=response[0:4000])
         response=response[4000:]
 
 
