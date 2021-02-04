@@ -30,7 +30,7 @@ if you wanna build your own bot, deploy from [here](https://github.com/Krishna-S
 async def exec_cmd(_, msg: Message):
     if not len(msg.command) > 1:
         return await msg.reply("`Command not found!`")
-    cmd = msg.command[1]
+    cmd = msg.text.split(' ', maxsplit=1)[1]
     try:
         t_obj = await Terminal.execute(cmd)
     except Exception as t_e:
