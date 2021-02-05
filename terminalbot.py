@@ -1,4 +1,5 @@
 import os
+import sys
 import asyncio
 from getpass import getuser
 from os import geteuid
@@ -7,7 +8,9 @@ from terminal import Terminal
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-OWNER_ID = int(os.environ.get("OWNER_ID", 0))
+OWNER_ID = [int(x.strip()) for x in os.environ.get("OWNER _ID", 0).split() if x.strip()]
+if not OWNER_ID:
+    sys.exit("Owner Id required, Exiting...")
 
 bot = Client(
     session_name=":memory:",
