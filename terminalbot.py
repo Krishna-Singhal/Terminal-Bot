@@ -1,6 +1,7 @@
 import os
 import sys
 import asyncio
+import logging
 from getpass import getuser
 from os import geteuid
 from terminal import Terminal
@@ -8,9 +9,16 @@ from terminal import Terminal
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-OWNER_ID = [int(x.strip()) for x in os.environ.get("OWNER _ID", 0).split() if x.strip()]
-if not OWNER_ID:
-    sys.exit("Owner Id required, Exiting...")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
+LOG = logging.getLogger(__name__)
+
+LOG.info("Checking Configs...")
 
 bot = Client(
     session_name=":memory:",
@@ -19,6 +27,10 @@ bot = Client(
     bot_token=os.environ.get("BOT_TOKEN", None)
 )
 
+OWNER_ID = [int(x.strip()) for x in os.environ.get("OWNER _ID", 0).split() if x.strip()]
+if not OWNER_ID:
+    LOG.error("Owner Id required, Exiting...")
+    sys.exit()
 
 @bot.on_message(filters.command("start"))
 async def _start(_, msg: Message):
@@ -75,3 +87,5 @@ async def exec_cmd(_, msg: Message):
 
 if __name__ == "__main__":
     bot.run()
+
+LOG.info("Terminal-Bot initialized.")
