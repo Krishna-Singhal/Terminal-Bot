@@ -78,7 +78,7 @@ async def exec_cmd(_, msg: Message):
             ef.write(out_data)
             ef.close()
         await msg.reply_document(
-            "terminal.txt", filename="terminal.txt", caption=cmd)
+            "terminal.txt", caption=cmd)
         os.remove("terminal.txt")
         return
     send = k.edit if k else msg.reply
